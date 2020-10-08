@@ -4,7 +4,7 @@ const plumber = require('gulp-plumber');
 const autoprefixer = require('gulp-autoprefixer');
 const browserSync = require('browser-sync').create();
 const sourceMaps = require('gulp-sourcemaps');
-const imagemin = require('gulp-imagemin');
+const imagemin = require("gulp-imagemin");
 const imageminJpegRecompress = require('imagemin-jpeg-recompress');
 const pngquant = require('imagemin-pngquant');
 const run = require("run-sequence");
@@ -19,9 +19,7 @@ gulp.task('sass', function () {
         .pipe(plumber())
         .pipe(sourceMaps.init())
         .pipe(sass())
-        .pipe(autoprefixer({
-            browsers: ['last 2 version']
-        }))
+        .pipe(autoprefixer())
         .pipe(sourceMaps.write())
         .pipe(gulp.dest('build/css'))
         .pipe(browserSync.reload({stream: true}));
@@ -62,7 +60,7 @@ gulp.task('images', function () {
                 quality: 'medium'
             }),
             imagemin.optipng({optimizationLevel: 3}),
-            pngquant({quality: '65-70', speed: 5})
+            pngquant({quality: [0.6, 0.7], speed: 5}),
         ]))
         .pipe(gulp.dest('build/img'));
 });
@@ -94,21 +92,21 @@ gulp.task('svg', function () {
         .pipe(gulp.dest('build/img'));
 });
 
-gulp.task('serve', function () {
+gulp.task('serve', gulp.series('html', 'sass', 'js', 'css', 'allimg', 'svg', function () {
     browserSync.init({
         server: "build"
-    })
+    });
 
-    gulp.watch("scss/**/*.scss", ["sass"]);
-    gulp.watch("*.html", ["html"]);
-    gulp.watch("js/**/*.js", ["js"]);
-    gulp.watch("css/**/*.css", ["css"]);
-    gulp.watch("img/**/*.{png, jpg}", ["allimg"]);
-    gulp.watch("img/**/*.{svg}", ["svg"]);
-});
+    gulp.watch("scss/**/*.scss", gulp.series('sass'));
+    gulp.watch("*.html", gulp.series('html'));
+    gulp.watch("js/**/*.js", gulp.series('js'));
+    gulp.watch("css/**/*.css",gulp.series('css'));
+    gulp.watch("img/**/*.{png,jpg}", gulp.series('allimg'));
+    gulp.watch("img/**/*.{svg}", gulp.series('svg'));
+}));
 
 gulp.task('copy', function () {
-    return  gulp.src ([
+    return gulp.src([
         'img/**',
         'js/**',
         'css/**',
@@ -117,20 +115,17 @@ gulp.task('copy', function () {
         base: '.'
     })
         .pipe(gulp.dest('build'));
+
 });
 
 gulp.task('clean', function () {
     return del('build');
 });
 
-gulp.task('build', function (fn) {
-    run(
-        'clean',
-        'copy',
-        'sass',
-        'images',
-        'svg',
-        fn
-    );
-});
-
+gulp.task('build', gulp.series(
+    'clean',
+    'copy',
+    'sass',
+    'images',
+    'svg'
+));
