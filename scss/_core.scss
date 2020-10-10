@@ -8,7 +8,7 @@ body {
 }
 
 .container {
-	@include min-max(320px, 100%, 15px);
+	@include min-max(320px, 100%, 15px 0);
 }
 
 .wrap {
