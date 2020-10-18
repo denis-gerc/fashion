@@ -87,6 +87,30 @@
 		.slider__btn {
 			@include btn();
 		}
+
+		.owl-nav{
+
+			button.owl-prev, button.owl-next{
+				background: url("../../img/arrow_13841.png");
+				width: 49px;
+				height: 49px;
+				border: none;
+				box-shadow: none;
+				position: absolute;
+				left: 5px;
+				top: 50%;
+				cursor: pointer;
+				//transform: translateY(-50%);
+
+			}
+
+			.owl-next {
+				background-position: -49px 0;
+				left: auto;
+				right: 5px;
+			}
+
+		}
 	}
 }
 
