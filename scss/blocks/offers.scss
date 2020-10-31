@@ -14,11 +14,11 @@
 
 		img {
 			display: block;
-			min-width: 100px;
+			max-width: 100%;
 		}
 
 		.offers__category {
-			font-style: 13px;
+			font-size: 13px;
 			line-height: 36px;
 			letter-spacing: 0.65px;
 			font-weight: 500;
@@ -119,10 +119,91 @@
 			text-align: center;
 			color: $offers-color;
 			text-transform: uppercase;
-			font-weight: 700;	
+			font-weight: 700;
 			font-size: 13px;
 			line-height: 25px;
 			letter-spacing: 0.65px;
+		}
+
+	}
+
+}
+
+@media (max-width: 1024px) {
+
+	.offers {
+		flex-wrap: wrap;
+
+		.offers__right {
+			flex-basis: 100%;
+			display: block;
+
+			.offers__element {
+				max-width: 371px;
+				margin: 20px auto;
+			}
+
+		}
+
+		.offers__center {
+			margin: 0;
+		}
+
+	}
+
+}
+
+@media (max-width: 800px) {
+
+	.offers {
+
+		.offers__left {
+			flex-basis: 100%;
+			display: block;
+
+			.offers__element {
+				max-width: 277px;
+				margin: 20px auto;
+			}
+
+		}
+
+		.offers__center {
+			flex-basis: 100%;
+			display: block;
+
+			.offers__element {
+				max-width: 470px;
+				margin: 0 auto;
+			}
+		}
+	}
+}
+
+@media (max-width: 768px) {
+
+	.offers {
+		margin: 25px 0;
+
+		.offers__center {
+
+			.offers__info {
+				top: 50px;
+			}
+		}
+
+		.offers__right {
+
+			.offers__info {
+				top: 15px;
+			}
+		}
+
+		.offers__element--glasses {
+
+			.offers__info {
+				top: auto;
+			}
 		}
 
 	}
