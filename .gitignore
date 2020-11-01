@@ -3,6 +3,7 @@
 *.ai
 *.log
 *.pdf
+*.psd
 *.sublime*
 Thumbs.db
 vendor
@@ -10,3 +11,4 @@ uploads/*
 !uploads/.gitkeep
 .vscode/
 node_modules/
+build/
