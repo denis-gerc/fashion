@@ -39,4 +39,21 @@ $(document).ready(function () {
         }
     });
 
+    $('.blog__block.owl-carousel').owlCarousel({
+        loop: true,
+        margin: 30,
+        nav: true,
+        dots: false,
+        navText: [],
+        responsive: {
+            0: {
+                items: 1
+            },
+            680: {
+                items: 2
+            }
+
+        }
+    });
+
 });
